@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/features/domain/entity/todo.dart';
 
-
-
-
 class CalendarMonthData {
   final int year;
   final int month;
@@ -34,7 +31,7 @@ class CalendarMonthData {
     for (var w = 0; w < weeksCount; w++) {
       final week = List<CalendarDayData>.generate(
         7,
-            (index) {
+        (index) {
           final date = firstDayOfWeek.add(Duration(days: index));
 
           final isActiveMonth = date.year == year && date.month == month;
@@ -101,6 +98,7 @@ class CustomDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(eventModel.length);
     final int number = date.day;
     final isToday = date.isToday;
     return Column(
@@ -110,8 +108,8 @@ class CustomDate extends StatelessWidget {
           style: isSelected
               ? IconButton.styleFrom(backgroundColor: Colors.blue.shade300)
               : isToday
-              ? IconButton.styleFrom(backgroundColor: Colors.pink.shade300)
-              : null,
+                  ? IconButton.styleFrom(backgroundColor: Colors.pink.shade300)
+                  : null,
           icon: Text(
             number.toString(),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -121,17 +119,17 @@ class CustomDate extends StatelessWidget {
         if (isActiveMonth)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: eventModel
-                .map((event) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 2.5),
-                height: 5,
-                width: 5,
-                decoration: BoxDecoration(
-                    color: Color(event.priorityColor),
-                    shape: BoxShape.circle),
-              );
-            })
+            children: eventModel.map((event) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 2.5),
+                      height: 5,
+                      width: 5,
+                      decoration: BoxDecoration(
+                          color: Colors.primaries[event.priorityColor],
+                          shape: BoxShape.circle),
+                    );
+                  },
+                )
                 .take(3)
                 .toList(),
           ),
