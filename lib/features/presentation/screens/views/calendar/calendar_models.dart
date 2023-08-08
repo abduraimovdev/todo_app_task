@@ -50,7 +50,6 @@ class CalendarMonthData {
   }
 }
 
-
 extension DateTimeExt on DateTime {
   DateTime get monthStart => DateTime(year, month);
 
@@ -120,7 +119,9 @@ class CustomDate extends StatelessWidget {
         if (isActiveMonth)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: eventModel.map((event) {
+            children: eventModel
+                .map(
+                  (event) {
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 2.5),
                       height: 5,
@@ -137,5 +138,20 @@ class CustomDate extends StatelessWidget {
         const SizedBox(height: 8),
       ],
     );
+  }
+}
+
+extension WeekToString on int {
+  String toWeek() {
+    return switch (this) {
+      1 => "Monday",
+      2 => "Tuesday",
+      3 => "Wednesday",
+      4 => "Thursday",
+      5 => "Friday",
+      6 => "Saturday",
+      7 => "Sunday",
+      _ => "",
+    };
   }
 }

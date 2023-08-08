@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/features/bloc/todo_bloc.dart';
+import 'package:todo_app/features/bloc/todo_state.dart';
 import 'package:todo_app/features/core/constants/common.dart';
+import 'package:todo_app/features/presentation/screens/views/calendar/calendar_models.dart';
 
 
-class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget{
-  final DateTime time;
-  const HomeScreenAppBar({
-    super.key, required this.time,
-  });
+class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+
+  const HomeScreenAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,32 +17,37 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget{
       elevation: 0,
       surfaceTintColor: Colors.transparent,
       centerTitle: true,
-      title: Column(
-        children: [
-          Text(
-            "${time.weekday}",
-            style: Styles.poppins600.copyWith(
-              color: AppColors.c292929,
-            ),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
+      title: BlocBuilder<TodoBloc, HomeState>(
+        builder: (context, state) {
+          final time = state.todoModel.current;
+          return Column(
             children: [
               Text(
-                "${time.day} ${time.month} ${time.year}",
-                style: Styles.poppins400.copyWith(
+                time.weekday.toWeek(),
+                style: Styles.poppins600.copyWith(
                   color: AppColors.c292929,
-                  fontSize: 10,
                 ),
               ),
-              Icon(
-                Icons.keyboard_arrow_down_outlined,
-                color: AppColors.c000000,
-                size: 15,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${time.day} ${time.month} ${time.year}",
+                    style: Styles.poppins400.copyWith(
+                      color: AppColors.c292929,
+                      fontSize: 10,
+                    ),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    color: AppColors.c000000,
+                    size: 15,
+                  ),
+                ],
               ),
             ],
-          ),
-        ],
+          );
+        },
       ),
       actions: [
         SvgIcons.notification,

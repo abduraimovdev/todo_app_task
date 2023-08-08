@@ -17,6 +17,11 @@ class ErrorEvent extends HomeEvent {
   const ErrorEvent();
 }
 
+class ChangeDateEvent extends HomeEvent {
+  final DateTime selectedDate;
+  const ChangeDateEvent(this.selectedDate);
+}
+
 class CreateTodoEvent extends HomeEvent {
   final TodoModel todoModel;
 

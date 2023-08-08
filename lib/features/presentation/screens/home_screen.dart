@@ -27,9 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeScreenAppBar(
-        time: selectedDate,
-      ),
+      appBar: const HomeScreenAppBar(),
       body: Column(
         children: [
           Expanded(
@@ -37,10 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: BlocBuilder<TodoBloc, HomeState>(
               builder: (context, state) {
                 return Calendar(
-                  dateChange: (DateTime e) {
-                    selectedDate = e;
-                  },
-                  todos: state.todoModel!,
+                  todos: state.todoModel.allTodos,
                 );
               },
             ),
@@ -64,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return ListView.separated(
                       primary: false,
                       itemBuilder: (context, index) {
-                        final todo = state.todoModel![index];
+                        final todo = state.todoModel.todos[index];
                         final Color color = Colors.primaries[todo.priorityColor];
                         return GestureDetector(
                           onTap: () async{
@@ -83,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       separatorBuilder: (context, index) =>
                       const SizedBox(height: 15),
-                      itemCount: state.todoModel!.length,
+                      itemCount: state.todoModel.todos.length,
                     );
                   },
                 ),

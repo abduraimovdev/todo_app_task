@@ -1,8 +1,8 @@
-import 'package:todo_app/features/domain/entity/todo.dart';
+import 'package:todo_app/features/bloc/event_todo.dart';
 
 /// State
 sealed class HomeState {
-  final List<TodoModel>? todoModel;
+  final EventTodo todoModel;
   const HomeState({required this.todoModel});
 }
 
@@ -18,5 +18,5 @@ class LoadedState extends HomeState {
 class ErrorState extends HomeState {
   final String message;
 
-  const ErrorState({super.todoModel,required this.message});
+  const ErrorState({required super.todoModel,required this.message});
 }
