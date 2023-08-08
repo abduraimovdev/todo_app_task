@@ -26,8 +26,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   final TextEditingController eventTitleController = TextEditingController();
 
-  final TextEditingController eventDescriptionController =
-      TextEditingController();
 
   final TextEditingController eventLocationController = TextEditingController();
 
@@ -41,7 +39,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
     final TodoModel model = TodoModel(
       id : 01,
       eventName : eventNameController.text.trim(),
-      eventDescription : eventDescriptionController.text.trim(),
+      eventDescription : descriptionController.text.trim(),
       eventLocation : eventLocationController.text.trim(),
       priorityColor : priorityColorController,
       time : EventTime(widget.selectedDate.add(const Duration(hours: 10, minutes: 15)), widget.selectedDate.add(const Duration(hours: 11, minutes: 50))),
