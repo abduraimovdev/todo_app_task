@@ -98,7 +98,6 @@ class CustomDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(eventModel.length);
     final int number = date.day;
     final isToday = date.isToday;
     return Column(

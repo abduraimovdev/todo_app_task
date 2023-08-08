@@ -100,7 +100,6 @@ class LocalDataSourceImpl extends LocalDataSource {
   @override
   Future<List<Map<String, dynamic>>> readAll({required SqlTable table}) async {
     final db = await database;
-
     return await db.query(table.name);
   }
 
@@ -108,12 +107,10 @@ class LocalDataSourceImpl extends LocalDataSource {
   Future<List<Map<String, dynamic>>> readAllFilteredDay(
       {required SqlTable table, required DateTime time}) async {
     final db = await database;
-
-    return await db.query(
-      table.name,
-      where: 'time',
-      whereArgs: ["${time.year}-${time.month}-${time.day}"],
-    );
+    final year = time.year.toString();
+    final month = time.month.toString().padLeft(2,"0");
+    final day = time.day.toString().padLeft(2,"0");
+    return await db.rawQuery("SELECT * FROM `${table.name}` WHERE `time` LIKE '%$year-$month-$day%'");
   }
 
   @override

@@ -18,7 +18,15 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if(value == null) return null;
+        if(value.isEmpty) {
+          return "Please fill in the blank line";
+        }else {
+          return null;
+        }
+      },
       controller: controller,
       maxLines: line,
       decoration: InputDecoration(

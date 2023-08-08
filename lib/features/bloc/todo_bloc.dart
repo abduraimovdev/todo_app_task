@@ -37,13 +37,12 @@ class TodoBloc extends Bloc<HomeEvent, HomeState> {
 
     try {
       List<TodoModel> response = await repository.getAllData();
-      List<TodoModel> date = await repository.getFilteredData(
+      List<TodoModel> filteredData = await repository.getFilteredData(
         state.todoModel.current,
       );
-
       emit(LoadedState(
         todoModel: EventTodo(
-          todos: date,
+          todos: filteredData,
           current: state.todoModel.current,
           allTodos: response,
         ),

@@ -35,20 +35,24 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   final TextEditingController descriptionController = TextEditingController();
 
-  void addEvent() {
-    final TodoModel model = TodoModel(
-      id : 01,
-      eventName : eventNameController.text.trim(),
-      eventDescription : descriptionController.text.trim(),
-      eventLocation : eventLocationController.text.trim(),
-      priorityColor : priorityColorController,
-      time : EventTime(widget.selectedDate.add(const Duration(hours: 10, minutes: 15)), widget.selectedDate.add(const Duration(hours: 11, minutes: 50))),
-      remainder : 15,
-      eventTitle : eventTitleController.text.trim(),
-    );
+  final _formKey = GlobalKey<FormFieldState>();
 
-    locator.get<TodoBloc>().add(CreateTodoEvent(todoModel: model));
-    Navigator.pop(context, ["done"]);
+  void addEvent() {
+      final TodoModel model = TodoModel(
+        id: 01,
+        eventName: eventNameController.text.trim(),
+        eventDescription: descriptionController.text.trim(),
+        eventLocation: eventLocationController.text.trim(),
+        priorityColor: priorityColorController,
+        time: EventTime(
+            widget.selectedDate.add(const Duration(hours: 10, minutes: 15)),
+            widget.selectedDate.add(const Duration(hours: 11, minutes: 50))),
+        remainder: 15,
+        eventTitle: eventTitleController.text.trim(),
+      );
+
+      locator.get<TodoBloc>().add(CreateTodoEvent(todoModel: model));
+      Navigator.pop(context, ["done"]);
   }
 
   @override
@@ -83,79 +87,82 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   top: 10,
                   bottom: MediaQuery.sizeOf(context).height * 0.01,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // -- Name
-                    const InputHintText(
-                      label: "Event name",
-                    ),
-                    AppSized.sized(context, height: 0.005),
-                    CustomTextField(
-                      controller: eventNameController,
-                    ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // -- Name
+                      const InputHintText(
+                        label: "Event name",
+                      ),
+                      AppSized.sized(context, height: 0.005),
+                      CustomTextField(
+                        controller: eventNameController,
+                      ),
 
-                    AppSized.sized(context, height: 0.02),
+                      AppSized.sized(context, height: 0.02),
 
-                    // -- Subtitle
-                    const InputHintText(
-                      label: "Event title",
-                    ),
-                    AppSized.sized(context, height: 0.005),
-                    CustomTextField(
-                      controller: eventTitleController,
-                    ),
+                      // -- Subtitle
+                      const InputHintText(
+                        label: "Event title",
+                      ),
+                      AppSized.sized(context, height: 0.005),
+                      CustomTextField(
+                        controller: eventTitleController,
+                      ),
 
-                    AppSized.sized(context, height: 0.02),
+                      AppSized.sized(context, height: 0.02),
 
-                    // -- Description
-                    const InputHintText(
-                      label: "Event description",
-                    ),
-                    AppSized.sized(context, height: 0.005),
-                    CustomTextField(
-                      line: 4,
-                      controller: descriptionController,
-                    ),
+                      // -- Description
+                      const InputHintText(
+                        label: "Event description",
+                      ),
+                      AppSized.sized(context, height: 0.005),
+                      CustomTextField(
+                        line: 4,
+                        controller: descriptionController,
+                      ),
 
-                    AppSized.sized(context, height: 0.02),
+                      AppSized.sized(context, height: 0.02),
 
-                    // -- Location
-                    const InputHintText(
-                      label: "Event location",
-                    ),
-                    AppSized.sized(context, height: 0.005),
-                    CustomFieldLocation(
-                      controller: eventLocationController,
-                    ),
+                      // -- Location
+                      const InputHintText(
+                        label: "Event location",
+                      ),
+                      AppSized.sized(context, height: 0.005),
+                      CustomFieldLocation(
+                        controller: eventLocationController,
+                      ),
 
-                    AppSized.sized(context, height: 0.02),
+                      AppSized.sized(context, height: 0.02),
 
-                    // -- Color
-                    const InputHintText(
-                      label: "Priority color",
-                    ),
-                    AppSized.sized(context, height: 0.01),
+                      // -- Color
+                      const InputHintText(
+                        label: "Priority color",
+                      ),
+                      AppSized.sized(context, height: 0.01),
 
-                    CustomDropButton(
-                      colors: [for (int i = 0; i <= 17; i++) i],
-                      onChange: (color) {
-                        priorityColorController = color;
-                      },
-                    ),
+                      CustomDropButton(
+                        colors: [for (int i = 0; i <= 17; i++) i],
+                        onChange: (color) {
+                          priorityColorController = color;
+                        },
+                      ),
 
-                    AppSized.sized(context, height: 0.02),
+                      AppSized.sized(context, height: 0.02),
 
-                    // -- Time
-                    const InputHintText(
-                      label: "Event time",
-                    ),
-                    AppSized.sized(context, height: 0.01),
-                    CustomFieldDateTime(
-                      controller: timeController,
-                      onPressed: () {},
-                    ),
-                  ],
+                      // -- Time
+                      const InputHintText(
+                        label: "Event time",
+                      ),
+                      AppSized.sized(context, height: 0.01),
+                      CustomFieldDateTime(
+                        controller: timeController,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
