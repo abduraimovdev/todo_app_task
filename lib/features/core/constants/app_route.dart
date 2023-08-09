@@ -9,6 +9,7 @@ sealed class AppRoute {
   static String get initialRoute => HomeScreen.id;
   static Map<String, Widget Function(BuildContext)> routes = {
     HomeScreen.id: (context) => const HomeScreen(),
+    AddEventScreen.id: (context) => const AddEventScreen(),
   };
 
   // Push Page
@@ -16,39 +17,24 @@ sealed class AppRoute {
     Navigator.pushNamed(context, HomeScreen.id);
   }
 
-  static Future<T?> pushAddEvent<T extends Object?>(
-      BuildContext context, DateTime time) {
-    return Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AddEventScreen(selectedDate: time),
-        ));
+  static Future<T?> pushAddEvent<T>(BuildContext context) {
+    return Navigator.pushNamed(context, AddEventScreen.id);
   }
 
-  static Future<T?> pushEditEvent<T extends Object?>(
-      BuildContext context,
-      TodoModel todoModel,
-      ) {
+  static Future<T?> pushEditEvent<T>(BuildContext context, TodoModel todo) {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditEventScreen(
-          todoModel: todoModel,
-        ),
+        builder: (context) => EditEventScreen(todoModel: todo),
       ),
     );
   }
 
-  static Future<T?> pushDetailsEvent<T extends Object?>(
-    BuildContext context,
-    TodoModel todoModel,
-  ) {
+  static Future<T?> pushDetailsEvent<T>(BuildContext context, TodoModel todo) {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DetailsEventScreen(
-          todoModel: todoModel,
-        ),
+        builder: (context) => DetailsEventScreen(todoModel: todo),
       ),
     );
   }
@@ -58,7 +44,17 @@ sealed class AppRoute {
     Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
 
+  static void repAddEvent(BuildContext context) {
+    Navigator.pushReplacementNamed(context, AddEventScreen.id);
+  }
 
+  static void repEditEvent(BuildContext context) {
+    Navigator.pushReplacementNamed(context, EditEventScreen.id);
+  }
+
+  static void repDetailsEvent(BuildContext context) {
+    Navigator.pushReplacementNamed(context, DetailsEventScreen.id);
+  }
 
   // Remove Until To Home
   static void removeToHome(BuildContext context) {

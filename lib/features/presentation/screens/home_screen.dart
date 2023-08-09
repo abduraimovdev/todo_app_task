@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           CalendarBottom(
             addEvent: () async{
-              await AppRoute.pushAddEvent(context, selectedDate);
+              await AppRoute.pushAddEvent(context);
               locator.get<TodoBloc>().add(const LoadingEvent());
             },
           ),

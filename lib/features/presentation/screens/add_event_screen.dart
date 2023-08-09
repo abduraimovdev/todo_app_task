@@ -12,10 +12,9 @@ import 'package:todo_app/features/presentation/screens/views/custom_text_field.d
 import 'package:todo_app/features/presentation/screens/views/input_hint_text.dart';
 
 class AddEventScreen extends StatefulWidget {
-  final DateTime selectedDate;
   static const String id = "add_event";
 
-  const AddEventScreen({super.key, required this.selectedDate});
+  const AddEventScreen({super.key});
 
   @override
   State<AddEventScreen> createState() => _AddEventScreenState();
@@ -38,6 +37,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   final _formKey = GlobalKey<FormFieldState>();
 
   void addEvent() {
+      final currentDate = locator.get<TodoBloc>().state.todoModel.current;
       final TodoModel model = TodoModel(
         id: 01,
         eventName: eventNameController.text.trim(),
@@ -45,8 +45,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
         eventLocation: eventLocationController.text.trim(),
         priorityColor: priorityColorController,
         time: EventTime(
-            widget.selectedDate.add(const Duration(hours: 10, minutes: 15)),
-            widget.selectedDate.add(const Duration(hours: 11, minutes: 50))),
+            currentDate.add(const Duration(hours: 10, minutes: 15)),
+            currentDate.add(const Duration(hours: 11, minutes: 50))),
         remainder: 15,
         eventTitle: eventTitleController.text.trim(),
       );
@@ -88,6 +88,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   bottom: MediaQuery.sizeOf(context).height * 0.01,
                 ),
                 child: Form(
+                  autovalidateMode: AutovalidateMode.always,
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
